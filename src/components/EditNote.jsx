@@ -69,12 +69,10 @@ function EditNote() {
 <div className='  w-full '>
 
 
-<img src={update} alt="edit image" className='h-12  w-12 border border-red-50 outline-none rounded-2xl absolute  xl:bottom-12 xl:right-12 sm:bottom-6 sm:right-6 cursor-pointer'  onClick={goToNotes} />
+<img src={update} alt="edit image" className='h-12  w-12 border border-red-50 outline-none rounded-2xl fixed  xl:bottom-12 xl:right-12 sm:bottom-6 sm:right-6 cursor-pointer'  onClick={goToNotes} />
 </div>
 
-<button onClick={()=>{
-  console.log(form)
-}}>clicker</button>
+
 </div>
   )
 }

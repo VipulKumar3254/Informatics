@@ -31,7 +31,7 @@ function ViewNote() {
 <div className='  w-full '>
 
 
-    <img src={edit} alt="edit image" className='h-12  w-12 border border-red-50 outline-none rounded-2xl absolute  xl:bottom-12 xl:right-12 sm:bottom-6 sm:right-6 cursor-pointer'  onClick={goToEdit} />
+    <img src={edit} alt="edit image" className='h-12  w-12 border border-red-50 outline-none rounded-2xl fixed  xl:bottom-12 xl:right-12 sm:bottom-6 sm:right-6 cursor-pointer'  onClick={goToEdit} />
 </div>
     </div>
 

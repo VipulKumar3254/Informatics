@@ -68,7 +68,7 @@ function Notes() {
     </div>
 
     <div>
-    <img src={add} alt="add note" className="w-12 h-12 absolute xl:right-12 xl:bottom-12 sm:bottom-6 sm:right-6 cursor-pointer " onClick={goToCreateNote} />
+    <img src={add} alt="add note" className="w-12 h-12 fixed xl:right-12 xl:bottom-12 sm:bottom-6 sm:right-6 cursor-pointer " onClick={goToCreateNote} />
     </div>
 {/*     
     <button onClick={ ()=>{
