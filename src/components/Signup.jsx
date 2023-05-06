@@ -10,7 +10,9 @@ import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "
 
 const Signup = () => {
   const [form, setform] = useState({})
-  const mailModal = useRef()
+  const mailModal = useRef(null)
+  const mainModal = useRef(null)
+  const mainModal2 = useRef(null)
   const navigate = useNavigate();
 
 
@@ -24,36 +26,57 @@ const Signup = () => {
 
   const submitHanlder = async (event) => {
     event.preventDefault();
-    console.log(event.target.password.value);
-    console.log(event.target.cpassword.value);
     if(event.target.password.value!=event.target.cpassword.value)
     { 
-      alert("passwords should be matching")
+      let element = mainModal.current;
+      element.classList.remove("hidden");
+
+      return;
     }
-    const auth = getAuth();
-    const result = await createUserWithEmailAndPassword(auth, event.target.email.value, event.target.password.value).then((user) => {
-      console.log(auth.currentUser);
+
+    else if( event.target.password.value.length<6  || event.target.email.value<6)
+    {
+      // alert("password must be greater than 6 Characters. ")
+      let element = mainModal2.current;
+      element.classList.remove("hidden");
+
+      return;
+    }
+    else
+    {
+
+      const auth = getAuth();
+      const result = await createUserWithEmailAndPassword(auth, event.target.email.value, event.target.password.value).then((user) => {
       sendEmailVerification(auth.currentUser)
         .then(() => {
           // console.log(mailModal.current.style.diplay="block")
           let element = mailModal.current;
-          console.log(element);
           element.classList.remove("hidden");
 
 
         })
         .catch((errr) => {
-          console.log("mail  can't be sent because   " + errr);
-          alert(errr)
+          console.log(errr);
         })
     }).catch((err) => { alert(err.message) })
 
-
-
+    
+  }
+    
   }
 
   const dismissModal=()=>{
     let element = mailModal.current;
+    element.classList.add("hidden");
+  }
+
+  const dismissModal1=()=>{
+    let element = mainModal.current;
+    element.classList.add("hidden");
+  }
+
+  const dismissModal2=()=>{
+    let element = mainModal2.current;
     element.classList.add("hidden");
   }
 
@@ -62,7 +85,7 @@ const Signup = () => {
     <>
 
 
-      <div className=" min-h-9vh bg-slate-400 w-screen flex items-start pt-20 xl:flex-row sm:flex-col">
+      <div className=" min-h-9vh bg-slate-400 w-full flex items-start pt-20 xl:flex-row sm:flex-col">
         <div className="xl:w-1/2 sm:w-full flex items-center justify-center">
           <div className="">
             {/* <img src={stickyNotes} alt="" className='7-xl -mt-12' /> */}
@@ -105,12 +128,35 @@ const Signup = () => {
       </div>
 
       {/* CODE RELATED TO MODAL OF CSS TO SHOW DURING SIGNUP PROCESS. */}
-      <div  ref={mailModal} className='flex w-screen justify-center items-center absolute top-0 hidden'>
+      <div  ref={mailModal} className='flex w-full justify-center items-center absolute top-0 hidden'>
 
       <div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
         <div className=''>
           <h1>Verification mail has been sent on Email id </h1>
           <button  onClick={dismissModal} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
+        </div>
+      </div>
+      </div>
+
+
+      {/* CODE RELATED TO MODAL OF CSS TO SHOW DURING SIGNUP PROCESS. */}
+      <div  ref={mainModal} className='flex w-full justify-center items-center absolute top-0 hidden'>
+
+      <div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
+        <div className=''>
+          <h1>Passwords should be matching </h1>
+          <button  onClick={dismissModal1} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
+        </div>
+      </div>
+      </div>
+
+      {/* CODE RELATED TO MODAL OF CSS TO SHOW DURING SIGNUP PROCESS. */}
+      <div  ref={mainModal2} className='flex w-full justify-center items-center absolute top-0 hidden'>
+
+      <div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
+        <div className=''>
+          <h1>Passwords must be atleast of 6 Characters.</h1>
+          <button  onClick={dismissModal2} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
         </div>
       </div>
       </div>

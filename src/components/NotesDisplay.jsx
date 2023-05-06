@@ -18,23 +18,22 @@ function NotesDisplay({ value }) {
     const text = props.text;
     return text.split('\n').map(str => <p>{str}</p>);
   }
-  function raj(){
-    element.current.children[2].style.opacity=1;
+  function raj() {
+    element.current.children[2].style.opacity = 1;
 
   }
 
-  function invisible()
-  {
-    element.current.children[2].style.opacity=0;
+  function invisible() {
+    element.current.children[2].style.opacity = 0;
 
   }
 
-  const fullView=()=>{
-    navigate("/ViewNote",{state:value})
+  const fullView = () => {
+    navigate("/ViewNote", { state: value })
 
   }
   return (
-    <div ref={element} onClick={fullView} onMouseOver={raj}  onMouseLeave={invisible} className={`${color[random]}  mx-px  my-px  border-none rounded hover:scale-105 box-border p-1 flex  flex-col xl:h-56 text-ellipsis cursor-pointer `}>
+    <div ref={element} onClick={fullView} onMouseOver={raj} onMouseLeave={invisible} className={`${color[random]}  mx-px  my-px  border-none rounded hover:scale-105 box-border p-1 flex  flex-col xl:h-56 text-ellipsis cursor-pointer sm:h-56`}>
       <div className=' text-xl'>
 
         {value.title}
@@ -44,32 +43,29 @@ function NotesDisplay({ value }) {
         {/* {value.content} */}
         <NewlineText className=" " text={value.content} />
       </div>
-      <div className='flex  justify-center items-center ml-2 mt-auto opacity-0'>
+      <div className='flex  justify-center items-center ml-2 mt-auto opacity-0 sm:flex-col sm:absolute sm:top-12 sm:right-1/4 md:flex-row'>
 
 
-          <button onClick={()=>{
-            navigate("/editNote",{state:value})
-          }}   className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-0'>Edit</button>
+        <button onClick={() => {
+          navigate("/editNote", { state: value })
+        }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-0'>Edit</button>
 
-          <button  onClick={async ()=>{
-            const auth = getAuth();
-            const ref =  await  deleteDoc(doc(db,`notes/${auth.currentUser.uid}/myNotes`,value.id))
-  .then( ()=>{
-    console.log("document has been deleted. ")
-            navigate("/notes")
-            window.location.reload(true);
-  navigate("/notes");  
-
-  }).catch( ( err)=>{
-    console.log(err);
-  })
-          }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1 ' >Delete</button>
+        <button onClick={async () => {
+          const auth = getAuth();
+          const ref = await deleteDoc(doc(db, `notes/${auth.currentUser.uid}/myNotes`, value.id))
+            .then(() => {
+              navigate("/notes")
+              window.location.reload(true);
+              navigate("/notes");
+            }).catch((err) => {
+            })
+        }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1 ' >Delete</button>
 
 
-          <button to='#'  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1' onClick={fullView} >View</button>
+        <button to='#' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1' onClick={fullView} >View</button>
       </div>
 
-     
+
     </div>
   )
 }

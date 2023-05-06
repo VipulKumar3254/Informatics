@@ -26,9 +26,7 @@ function EditNote() {
 
   const goToNotes=async ()=>{
     const auth = getAuth();
-    console.log(auth);
 
-    console.log(data.state.id);
   const ref =  await  updateDoc(doc(db,`notes/${auth.currentUser.uid}/myNotes`,data.state.id),{
     "title":form.title,
     "content":form.content
@@ -43,7 +41,6 @@ function EditNote() {
   }
 
   const handleInput=(e)=>{
-    console.log(e.target.value);
     const obj = { ...form, [e.target.name]:e.target.value};
     setForm(obj)
   }

@@ -38,7 +38,6 @@ function Notes() {
         
         
       } else {
-        console.log("user is not signed in ");
         navigate("/login");
       }
     })

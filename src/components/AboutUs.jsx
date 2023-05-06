@@ -7,7 +7,7 @@ function AboutUs() {
     return (
         <div ref={aboutUs} id='aboutussection' className="min-h-7vh bg-stone-400 xl:pt-12 pt-6 ">
 
-            <h1 className='text-2xl text-center  font-semibold font-sans text-cyan-900'>We are here to provide X-platform notes taking facility with minimal efforts.</h1>
+            <h1 className='text-2xl   font-semibold font-sans text-cyan-900 text-center'>We are here to provide X-platform notes taking facility with minimal efforts.</h1>
             <div className=" flex xl:mt-12 xl:flex-row  xl:p-5 sm:p-2 flex-col">
 
                 <div className='xl:w-1/2 flex   sm:justify-center sm:items-center xl:justify-start xl:items-start  flex-col xl:ml-24 p-4 w-full'> 

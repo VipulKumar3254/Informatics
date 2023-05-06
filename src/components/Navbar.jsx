@@ -59,8 +59,6 @@ const auth =getAuth(firebaseApp)
   
     onAuthStateChanged(auth,user=>{
       if(user){
-        console.log(user);
-        console.log(auth);
         setIsAuthenticated(true)
 
 
