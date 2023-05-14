@@ -15,6 +15,7 @@ import PageNotFound from './components/PageNotFound'
 import AboutUs from './components/AboutUs'
 import ContactUs from './components/ContactUs'
 import { useEffect } from 'react'
+import Footer from './components/Footer'
 
 
 
@@ -22,14 +23,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   
   <BrowserRouter>
   <Routes>
-  <Route path='/' element={[<Navbar about="About Us" contact="Contact Us" right="Logout" /> ,  <LandingPage/>,<AboutUs/>,<ContactUs/>]} ></Route>
-    <Route exact  path='/login' element={[<Navbar about="About Us" contact="Contact Us" right="Logout" /> ,<Login/>,<AboutUs/>,<ContactUs/>]}></Route>
-    <Route path='/signup' element={[ <Navbar about="About Us" contact="Contact Us"  right="Logout" /> ,<Signup/>,<AboutUs/>,<ContactUs/>]}></Route>
+  <Route path='/' element={[<Navbar about="About Us" contact="Contact Us" right="Logout" /> ,  <LandingPage/>,<AboutUs/>,<ContactUs/>,<Footer/>]} ></Route>
+    <Route exact  path='/login' element={[<Navbar about="About Us" contact="Contact Us" right="Logout" /> ,<Login/>,<AboutUs/>,<ContactUs/>,<Footer/>]}></Route>
+    <Route path='/signup' element={[ <Navbar about="About Us" contact="Contact Us"  right="Logout" /> ,<Signup/>,<AboutUs/>,<ContactUs/>,<Footer/>]}></Route>
     <Route path='/notes' element={[ <Navbar right="Logout" /> , <Notes/>]}></Route>
     <Route path='/viewNote' element={[ <Navbar right="Logout" /> , <ViewNote/>]} > </Route>
     <Route path='/editNote' element={[ <Navbar right="Logout" /> , <EditNote/>]} > </Route>
     <Route path='/createNote' element={ [<Navbar right="Logout" />, <CreateNote/>]}></Route>
-    <Route path='*'  element={[ <Navbar  about="About Us" contact="Contact Us" right="Logout"/> ,<PageNotFound/>,<AboutUs/>,<ContactUs/>] }></Route>
+    <Route path='*'  element={[ <Navbar  about="About Us" contact="Contact Us" right="Logout"/> ,<PageNotFound/>,<AboutUs/>,<ContactUs/>,<Footer/>] }></Route>
   </Routes>
 
   </BrowserRouter>
