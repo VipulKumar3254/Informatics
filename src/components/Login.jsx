@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import stickyNotes from "../assets/cover.png"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +13,7 @@ function Signup() {
   const [form, setform] = useState({})
   const navigate = useNavigate();
   const mainModal = useRef(null)
+  const mainModal2 = useRef(null)
 
 
   const inputHandler = (event) => {
@@ -22,20 +23,25 @@ function Signup() {
 
   const submitHanlder = async (event) => {
     event.preventDefault();
-    if(event.target.email.value ==""  ||  event.target.password.value == "")
-    {
+    if (event.target.email.value == "" || event.target.password.value == "") {
       alert("Please enter email and password")
-      
+
     }
     const auth = getAuth();
     const result = await signInWithEmailAndPassword(auth, event.target.email.value, event.target.password.value).then((user) => {
 
+      console.log(user.user.emailVerified);
+      if (!user.user.emailVerified) {
+        let element = mainModal2.current;
+        element.classList.remove("hidden");
+        return;
+      }
       navigate("/notes");
     })
       .catch((err) => {
         console.log(err.message);
-          let element = mainModal.current;
-          element.classList.remove("hidden");
+        let element = mainModal.current;
+        element.classList.remove("hidden");
 
       })
 
@@ -44,8 +50,13 @@ function Signup() {
 
   }
 
-  const dismissModal=()=>{
+  const dismissModal = () => {
     let element = mainModal.current;
+    element.classList.add("hidden");
+  }
+
+  const dismissModal2 = () => {
+    let element = mainModal2.current;
     element.classList.add("hidden");
   }
 
@@ -73,7 +84,7 @@ function Signup() {
 
 
             <input type="password" required id="password" name='password' onChange={inputHandler} value={form.password} placeholder='Enter Password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-72 p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            <input type="submit" value="Login" className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" />
+            <input type="submit" value="Login" className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full cursor-pointer" />
 
             <p className='text-xs text-center mt-1'>Wants to create account? <Link to="/signup" className='text-blue-600 inline'>Signup</Link></p>
             <div className='flex justify-center items-center mt-4 mb-4'>
@@ -92,16 +103,26 @@ function Signup() {
 
       </div>
 
-       {/* CODE to show div when user enter wrong email and password  */}
-       <div  ref={mainModal} className='flex w-full justify-center items-center absolute top-0 hidden'>
+      {/* CODE to show div when user enter wrong email and password  */}
+      <div ref={mainModal} className='flex w-full justify-center items-center absolute top-0 hidden'>
 
-<div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
-  <div className=''>
-    <h1>Please enter valid email and password</h1>
-    <button  onClick={dismissModal} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
-  </div>
-</div>
-</div>
+        <div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
+          <div className=''>
+            <h1>Please enter valid email and password</h1>
+            <button onClick={dismissModal} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
+          </div>
+        </div>
+      </div>
+      {/* CODE to show div when email is not verified of user. and try to login app.  */}
+      <div ref={mainModal2} className='flex w-full justify-center items-center absolute top-0 hidden'>
+
+        <div className='  relative left-0 top-12 bg-zinc-300 p-6 border-none rounded-lg'>
+          <div className=''>
+            <h1>Please verify email from sent email </h1>
+            <button onClick={dismissModal2} className='mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'>Ok</button>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
