@@ -46,15 +46,17 @@ function NotesDisplay({ value }) {
 
   
     setIsOpen(false);  // to not to show modal when we open the page
-    document.addEventListener("mousedown", (element) => {
+    const modalHide=  (element) => {
 
       if(!mainModal.current.contains(element.target))
       {
-        mainModal.current.classList.add("right-100vh")
+        mainModal.current.classList.add("right-100vh")  // brings the modal far away from mobile view.
       }
-    })
+    }
+    document.addEventListener("mousedown",modalHide)
 
     return () => {
+      document.removeEventListener("mousedown",modalHide)
 
     }
   }, [])

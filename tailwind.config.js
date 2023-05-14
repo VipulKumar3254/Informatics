@@ -55,6 +55,9 @@ export default {
       spacing:{
         "100vh":"100vw",
 
+      },
+      minWidth:{
+        "flexible-half":"50vw",
       }
 
     },

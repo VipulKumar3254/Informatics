@@ -7,10 +7,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // imports related to icons 
 import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import { doc } from 'firebase/firestore';
+import { useRef } from 'react';
 
 function Navbar(props) {
+  const account = useRef(null);
+  const account1 = useRef(null);
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 const auth =getAuth(firebaseApp)
@@ -51,6 +55,13 @@ const auth =getAuth(firebaseApp)
     dialog.classList.remove("hidden")
   }
 
+  const accountShow=()=>{
+    account.current.classList.toggle("hidden")
+  }
+  const accountShow1=()=>{
+    account1.current.classList.toggle("hidden")
+  }
+
 
   useEffect(() => {
 
@@ -62,9 +73,17 @@ const auth =getAuth(firebaseApp)
   
     const unsubscribe = onAuthStateChanged(auth,user=>{
       if(user){
-        console.log(auth);
-        console.log(user);
-        setIsAuthenticated(true)
+        const name = user.email.split("@")[0]
+        
+        if(user.auth.currentUser.emailVerified)
+        {
+          setIsAuthenticated((state)=>{return !state})
+            account.current.innerText=name  // setting the name of user to show in dom
+            account1.current.innerText=name  // setting the name of user to show in dom
+       
+
+        }
+
 
 
       }
@@ -95,17 +114,22 @@ const auth =getAuth(firebaseApp)
 
         <div className="  mr-6  flex xl:items-center  md:block xl:justify-center  ">
         <div className='flex '>
-        
-        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block'><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
-        {props.about ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block' onClick={aboutUs}>{props.about}</button>:""} 
-        {props.contact ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block' onClick={contactUs}>{props.contact}</button>:""} 
+       
+        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block transition ease-in-out'><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
+        {props.about ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block transition ease-in-out' onClick={aboutUs}>{props.about}</button>:""} 
+        {props.contact ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block transition ease-in-out' onClick={contactUs}>{props.contact}</button>:""} 
 
-         { isAuthenticated ?  <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block' onClick={logout}>{props.right}</button> : ""}
+         { isAuthenticated ?  <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block transition ease-in-out' onClick={logout}>{props.right}</button> : ""}
+
+       <div onClick={accountShow1} className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block  cursor-pointer transition ease-in-out '>
+            <p ref={account1} className='   text-black   px-2 rounded py-2 mt-1  inline hidden' ></p> 
+          <AccountCircleIcon   className='inline scale-125'/> 
+        </div> 
         </div>
          <div className='inline absolute top-6 right-4 md:hidden'>
          <button onClick={openDialog}>
 
-         <MenuIcon className="scale-150"  />
+         <MenuIcon className="scale-150  transition ease-in-out"  />
          {
          }
         
@@ -113,13 +137,17 @@ const auth =getAuth(firebaseApp)
          </div>
 
          {/* code responsible for openDialog function */}
-         <div id='dialog' className='h-full  bg-gray-600 w-1/2 hidden z-50 absolute  top-0 right-0 flex flex-col p-2'>
-
+         <div id='dialog' className='h-full  bg-gray-600 min-w-flexible-half hidden z-50 absolute  top-0 right-0 flex flex-col p-2  transition ease-in-out delay-150 '>
+         <div onClick={accountShow} className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4   cursor-pointer text-center'>
+           <p ref={account} className='   text-black   px-2 rounded py-2 mt-1  inline' ></p> 
+         <AccountCircleIcon   className='inline scale-125'/>
+        
+        </div>
          { isAuthenticated ?  <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={logout}>{props.right}</button> :""}
+        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 '><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
         {props.about ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={aboutUs}>{props.about}</button>:""} 
         {props.contact ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={contactUs}>{props.contact}</button>:""} 
-        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 '><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
-
+         
           <button className='absolute bottom-6 right-1/2 scale-150' onClick={closeDialog}>
             <CloseIcon/>
           </button>

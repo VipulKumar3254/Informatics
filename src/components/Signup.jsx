@@ -105,7 +105,7 @@ const Signup = () => {
             <input type="password" name='password' id="password" onChange={handler} value={form.password} required placeholder='Create Password' className=" my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-72 p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 
             <input type="password" name='cpassword' id="c-password" onChange={handler} value={form.cpassword}  required placeholder='Confirm Password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-72 p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            <input type="submit" value="Submit" className='mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full cursor-pointer' />
+            <input type="submit" value="Sign Up" className='mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full cursor-pointer' />
             {/* <buton type='submit' className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full ">
 <Link tot="/signup" className='inline'>Sign Up</Link>
 </button> */}

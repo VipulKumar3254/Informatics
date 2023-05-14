@@ -21,6 +21,11 @@ function Notes() {
 
         
         
+        if(!user.auth.currentUser.emailVerified)
+        {
+          navigate("/login")
+        }
+
         const getFirestoreData = async () => {
           const querySnapshot = await getDocs(collection(db, "notes", user.uid, "myNotes"));
           // const querySnapshot = await getDocs(collection(db, "notes", user.uid, "myNotes"));
