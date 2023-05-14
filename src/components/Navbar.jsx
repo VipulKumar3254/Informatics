@@ -33,6 +33,8 @@ const auth =getAuth(firebaseApp)
     }
     const auth = getAuth(firebaseApp);
     auth.signOut().then(() => {
+      account.current.innerText="";
+      account1.current.innerText="";
       navigate("/login")
       dialog.classList.add("hidden")
 
@@ -121,10 +123,12 @@ const auth =getAuth(firebaseApp)
 
          { isAuthenticated ?  <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block transition ease-in-out' onClick={logout}>{props.right}</button> : ""}
 
+
        <div onClick={accountShow1} className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block  cursor-pointer transition ease-in-out '>
             <p ref={account1} className='   text-black   px-2 rounded py-2 mt-1  inline hidden' ></p> 
           <AccountCircleIcon   className='inline scale-125'/> 
         </div> 
+       
         </div>
          <div className='inline absolute top-6 right-4 md:hidden'>
          <button onClick={openDialog}>

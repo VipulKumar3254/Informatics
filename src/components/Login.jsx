@@ -30,7 +30,6 @@ function Signup() {
     const auth = getAuth();
     const result = await signInWithEmailAndPassword(auth, event.target.email.value, event.target.password.value).then((user) => {
 
-      console.log(user.user.emailVerified);
       if (!user.user.emailVerified) {
         let element = mainModal2.current;
         element.classList.remove("hidden");
