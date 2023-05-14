@@ -44,12 +44,19 @@ export default {
       fontFamily:{
        "font1":"Lora",
        "font2":["Source Sans Pro","sans-serif"],
-       "castora":['Castoro Titling', 'cursive']
+       "castora":['Castoro Titling', 'cursive'],
+       "bai":['Bai Jamjuree', 'sans-serif'],
+       "basker":['Baskervville', 'serif']
       },
       borderRadius:{
         "4xl":"30px",
         "5xl":"40px",
+      },
+      spacing:{
+        "100vh":"100vw",
+
       }
+
     },
     
   },

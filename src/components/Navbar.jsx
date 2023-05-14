@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import icon from "../assets/icon.png"
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseApp } from '../firebaseConfig';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 // imports related to icons 
@@ -23,7 +23,6 @@ const auth =getAuth(firebaseApp)
   const logout = (e) => {
     if(!(e.target.innerText=="Logout"))
     {
-      // aboutUs.current.scrollIntoView()   
       const element = document.getElementById("aboutussection");
       element.scrollIntoView({ behavior: 'smooth', block: 'start' } )
       return;
@@ -31,6 +30,8 @@ const auth =getAuth(firebaseApp)
     const auth = getAuth(firebaseApp);
     auth.signOut().then(() => {
       navigate("/login")
+      dialog.classList.add("hidden")
+
     }).catch((errr) => {
       console.log(errr);
     })
@@ -49,6 +50,8 @@ const auth =getAuth(firebaseApp)
     const dialog = document.getElementById("dialog")
     dialog.classList.remove("hidden")
   }
+
+
   useEffect(() => {
 
     const dialog = document.getElementById("dialog")
@@ -57,17 +60,20 @@ const auth =getAuth(firebaseApp)
 
     })
   
-    onAuthStateChanged(auth,user=>{
+    const unsubscribe = onAuthStateChanged(auth,user=>{
       if(user){
+        console.log(auth);
+        console.log(user);
         setIsAuthenticated(true)
 
 
       }
       else{
+        setIsAuthenticated(false);
       }
     })
     return () => {
-      
+      unsubscribe(); 
     }
   }, [])
   
@@ -89,7 +95,8 @@ const auth =getAuth(firebaseApp)
 
         <div className="  mr-6  flex xl:items-center  md:block xl:justify-center  ">
         <div className='flex '>
-
+        
+        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block'><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
         {props.about ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block' onClick={aboutUs}>{props.about}</button>:""} 
         {props.contact ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 sm:hidden md:block' onClick={contactUs}>{props.contact}</button>:""} 
 
@@ -98,7 +105,7 @@ const auth =getAuth(firebaseApp)
          <div className='inline absolute top-6 right-4 md:hidden'>
          <button onClick={openDialog}>
 
-         <MenuIcon className=" scale-150"  />
+         <MenuIcon className="scale-150"  />
          {
          }
         
@@ -111,6 +118,8 @@ const auth =getAuth(firebaseApp)
          { isAuthenticated ?  <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={logout}>{props.right}</button> :""}
         {props.about ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={aboutUs}>{props.about}</button>:""} 
         {props.contact ? <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 ' onClick={contactUs}>{props.contact}</button>:""} 
+        { <button className='bg-gray-400  hover:bg-gray-500 text-black font-medium  px-5 rounded py-3 mt-4 '><Link  target='_blank' to={"https://drive.google.com/file/d/1P2V5717Za8tRBZnH8sa7ygQN2nuxlaM5/view?usp=sharing"}>Download App</Link></button>} 
+
           <button className='absolute bottom-6 right-1/2 scale-150' onClick={closeDialog}>
             <CloseIcon/>
           </button>

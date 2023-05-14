@@ -62,7 +62,7 @@ function EditNote() {
     <textarea name="title" id="title" value={form.title} onChange={handleInput}  className="w-full" ></textarea>
     </div> 
     <div className='text-xl xl:px-6 min-h-8vh   mt-2 font-font2 '>
-    <textarea name="content" id="content"  value={form.content}  onChange={handleInput} className='w-full min-h-7vh'></textarea>
+    <textarea name="content" id="content"  value={form.content}  onChange={handleInput} className='w-full min-h-8vh'></textarea>
     </div>
 </div>
 
