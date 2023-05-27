@@ -26,7 +26,11 @@ function EditNote() {
 
   const goToNotes=async ()=>{
     const auth = getAuth();
-
+    if(!(form.title && form.content))
+    {
+      alert("please enter both fields to update note.")
+      return;
+    }
   const ref =  await  updateDoc(doc(db,`notes/${auth.currentUser.uid}/myNotes`,data.state.id),{
     "title":form.title,
     "content":form.content

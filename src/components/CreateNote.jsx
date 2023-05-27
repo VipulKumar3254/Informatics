@@ -16,6 +16,12 @@ function CreateNote() {
 
     const createNote=async ()=>{
         const auth = getAuth();
+        if(!(form.title && form.content))
+        {
+            alert("Please enter both fields to save note.")
+            return;
+
+        }
         await addDoc(collection(db,`notes/${auth.currentUser.uid}/myNotes`,),{ 
             title:form.title,
             content:form.content
