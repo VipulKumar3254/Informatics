@@ -7,6 +7,7 @@ import { getDocs } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import NotesDisplay from './NotesDisplay';
+import Spinner from "./Spinner";
 
 function Notes() {
   const [notes, setnotes] = useState([])
@@ -63,6 +64,8 @@ function Notes() {
         notes.map((element) => <li>{element.title} <br /> {element.content}</li>)
       } */}
       {/* <NotesDisplay value={notes} />   */}
+      {notes.length==0 ?<div> <Spinner/> </div>: 
+
     <div className="min-h-9vh bg-slate-300">
 
     <div className='  grid xl:grid-cols-3 grider bg-slate-300 sm:grid-cols-2 '>
@@ -71,6 +74,8 @@ function Notes() {
     }
     </div>
     </div>
+
+     }
 
     <div>
     <img src={add} alt="add note" className="w-12 h-12 fixed xl:right-12 xl:bottom-12 sm:bottom-6 sm:right-6 cursor-pointer " onClick={goToCreateNote} />

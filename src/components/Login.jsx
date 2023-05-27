@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+// import stickyNotes from "./assets/cover.png"   //this code was changed this can throw eror please fix if throw some kind of error
 import stickyNotes from "../assets/cover.png"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'

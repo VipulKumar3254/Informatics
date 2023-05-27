@@ -16,6 +16,7 @@ import AboutUs from './components/AboutUs'
 import ContactUs from './components/ContactUs'
 import { useEffect } from 'react'
 import Footer from './components/Footer'
+import Spinner from './components/Spinner'
 
 
 
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Route path='/viewNote' element={[ <Navbar right="Logout" /> , <ViewNote/>]} > </Route>
     <Route path='/editNote' element={[ <Navbar right="Logout" /> , <EditNote/>]} > </Route>
     <Route path='/createNote' element={ [<Navbar right="Logout" />, <CreateNote/>]}></Route>
+    <Route path='/spinner' element={ [<Navbar right="Logout" />, <Spinner/>]}></Route>
     <Route path='*'  element={[ <Navbar  about="About Us" contact="Contact Us" right="Logout"/> ,<PageNotFound/>,<AboutUs/>,<ContactUs/>,<Footer/>] }></Route>
   </Routes>
 
